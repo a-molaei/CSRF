@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!--Use Allow-Control-Allow-Origin plugin in Chrome and enable CORS-->
+    <title></title>
+    <script src="Scripts/jquery-3.2.1.min.js"></script>
+    <script>
+        function forge() {
+            var finalResult;
+            var searchParams = [];
+            searchParams.push("ProvinceCityID");
+            searchParams.push(0);
+            searchParams.push("AreaName");
+            searchParams.push("");
+            searchParams.push("PathName");
+            searchParams.push("");
+            var data = { firstRow: 1, pageSize: 10, searchParams: searchParams };
+            $.ajax({
+                type: 'POST',
+                url: ("http://localhost:47568/wsl/pathwsl.asmx/SearchPathAndArea"),
+                data: JSON.stringify(data),
+                async: false,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+                        ajaxResult = $.parseJSON(response.d);
+                        alert(JSON.stringify(ajaxResult.Value));
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                },
+            });
+        }
+    </script>
+</head>
+<body>
+            <input type="button" value="clickme" onclick="forge()"/>
+</body>
+</html>
